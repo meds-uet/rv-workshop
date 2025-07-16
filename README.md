@@ -142,7 +142,7 @@ If you find issues or have improvements, please:
 3. Submit a pull request
 
 ### License
-This workshop material is provided under the Apache License.
+This workshop material is provided under the Apache License Version 2.0
 
 ### Contact
 For questions or support:
