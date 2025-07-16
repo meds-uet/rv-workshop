@@ -231,5 +231,5 @@ This project is licensed under the **Apache License 2.0**. See `LICENSE` file fo
 
 ---
 
-*Workshop developed with ❤️ by Maktab e Digital Systems (MEDS)*
+*Workshop developed by Maktab e Digital Systems (MEDS)*
 
