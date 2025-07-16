@@ -1,0 +1,29 @@
+// Copyright 2025 Maktab-e-Digital Systems Lahore.
+// Licensed under the Apache License, Version 2.0, see LICENSE file for details.
+// SPDX-License-Identifier: Apache-2.0
+//
+// Author: Umer Shahid (@umershahidengr)
+// =============================================================================
+// Single-Cycle RISC-V Processor - Complete Implementation
+// MEDS Workshop: "Build your own RISC-V Processor in a day"
+// =============================================================================
+// =============================================================================
+// PROGRAM COUNTER MODULE
+// =============================================================================
+
+
+module pc (
+    input          clk,
+    input          reset,
+    input  [31:0] pc_next,
+    output logic [31:0] pc
+);
+    always_ff @(posedge clk or posedge reset) begin
+        if (reset)
+            pc <= 32'h0000_0000;
+        else
+            pc <= pc_next;
+    end
+endmodule
+
+

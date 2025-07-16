@@ -1,0 +1,21 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Wed Jul 16 17:06:14 2025
+# Process ID: 104720
+# Current directory: /home/user/Work/MEDS/rv-workshop/project/logs
+# Command line: vivado
+# Log file: /home/user/Work/MEDS/rv-workshop/project/logs/vivado.log
+# Journal file: /home/user/Work/MEDS/rv-workshop/project/logs/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/user/Work/MEDS/rv-workshop/project/logs/riscv/riscv.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/user/Tools/Vivado/Vivado/2018.2/data/ip'.
+open_project: Time (s): cpu = 00:00:19 ; elapsed = 00:00:07 . Memory (MB): peak = 6195.984 ; gain = 175.766 ; free physical = 1888 ; free virtual = 17366
+update_compile_order -fileset sources_1
+file mkdir /home/user/Work/MEDS/rv-workshop/project/logs/riscv/riscv.srcs/sources_1/new

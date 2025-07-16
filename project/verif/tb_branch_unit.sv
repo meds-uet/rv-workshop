@@ -4,23 +4,25 @@
 //
 // Author: Umer Shahid (@umershahidengr)
 // =============================================================================
-// Single-Cycle RISC-V Processor - Complete Implementation
-// MEDS Workshop: "Build your own RISC-V Processor in a day"
+// RISC-V Branch Unit Testbench
 // =============================================================================
-// =============================================================================
-// RISC-V Processor Comprehensive Testbench
-// Tests individual modules and complete processor
-// =============================================================================
+
 module tb_branch_unit;
+
     // Inputs
-    reg [31:0] rd1, rd2;
-    reg [2:0] funct3;
-    reg branch;
-    
+    logic [31:0] rd1, rd2;
+    logic [2:0] funct3;
+    logic branch;
+
     // Output
     wire pc_src;
-    
-    // Instantiate branch unit
+
+    // Test counters
+    int passed = 0;
+    int failed = 0;
+    int total  = 0;
+
+    // Instantiate DUT
     branch_unit dut (
         .rd1(rd1),
         .rd2(rd2),
@@ -28,73 +30,58 @@ module tb_branch_unit;
         .branch(branch),
         .pc_src(pc_src)
     );
-    
+
+    // Helper task to run a test case
+    task run_test(
+        input logic [31:0] r1,
+        input logic [31:0] r2,
+        input logic [2:0] f3,
+        input logic br,
+        input logic expected,
+        input string description
+    );
+        begin
+            rd1 = r1;
+            rd2 = r2;
+            funct3 = f3;
+            branch = br;
+            #1; // Wait for combinational logic
+
+            total++;
+            if (pc_src === expected) begin
+                passed++;
+                $display("[PASS] %s | pc_src = %b as expected", description, pc_src);
+            end else begin
+                failed++;
+                $display("[FAIL] %s | pc_src = %b, expected %b", description, pc_src, expected);
+            end
+        end
+    endtask
+
     // Test sequence
     initial begin
-        $display("Starting Branch Unit test...");
-        $monitor("Time=%t: rd1=%h rd2=%h funct3=%b branch=%b pc_src=%b",
-                $time, rd1, rd2, funct3, branch, pc_src);
-        
-        // Test 1: BEQ (equal)
-        branch = 1;
-        funct3 = 3'b000;
-        rd1 = 32'h1234_5678;
-        rd2 = 32'h1234_5678;
-        #10;
-        
-        // Test 2: BEQ (not equal)
-        rd2 = 32'h8765_4321;
-        #10;
-        
-        // Test 3: BNE (not equal)
-        funct3 = 3'b001;
-        #10;
-        
-        // Test 4: BNE (equal)
-        rd2 = 32'h1234_5678;
-        #10;
-        
-        // Test 5: BLT (a < b, signed)
-        funct3 = 3'b100;
-        rd1 = 32'hFFFF_FFFF; // -1
-        rd2 = 32'h0000_0001; // 1
-        #10;
-        
-        // Test 6: BLT (a >= b, signed)
-        rd1 = 32'h0000_0001;
-        #10;
-        
-        // Test 7: BGE (a >= b, signed)
-        funct3 = 3'b101;
-        #10;
-        
-        // Test 8: BGE (a < b, signed)
-        rd1 = 32'hFFFF_FFFF;
-        #10;
-        
-        // Test 9: BLTU (a < b, unsigned)
-        funct3 = 3'b110;
-        rd1 = 32'h0000_0001;
-        rd2 = 32'hFFFF_FFFF;
-        #10;
-        
-        // Test 10: BLTU (a >= b, unsigned)
-        rd1 = 32'hFFFF_FFFF;
-        #10;
-        
-        // Test 11: BGEU (a >= b, unsigned)
-        funct3 = 3'b111;
-        #10;
-        
-        // Test 12: BGEU (a < b, unsigned)
-        rd1 = 32'h0000_0001;
-        #10;
-        
-        // Test 13: Branch disabled
-        branch = 0;
-        #10;
-        
-        $display("Branch Unit test completed");
+        $display("=== Branch Unit Testbench Start ===");
+
+        run_test(32'h12345678, 32'h12345678, 3'b000, 1, 1, "BEQ (equal)");
+        run_test(32'h12345678, 32'h87654321, 3'b001, 1, 1, "BNE (not equal)");
+        run_test(-5, 10,         3'b100, 1, 1, "BLT (signed -5 < 10)");
+        run_test(-5, -10,        3'b101, 1, 1, "BGE (signed -5 >= -10)");
+        run_test(32'h00000001, 32'hFFFFFFFF, 3'b110, 1, 1, "BLTU (unsigned 1 < FFFFFFFF)");
+        run_test(32'hFFFFFFFF, 32'h00000001, 3'b111, 1, 1, "BGEU (unsigned FFFFFFFF >= 1)");
+
+        run_test(32'h11111111, 32'h22222222, 3'b010, 1, 0, "Invalid funct3 (should output 0)");
+        run_test(32'h12345678, 32'h12345678, 3'b000, 0, 0, "BEQ (branch disabled)");
+
+        $display("=== Branch Unit Testbench Summary ===");
+        $display("Total Tests: %0d", total);
+        $display("Passed     : %0d", passed);
+        $display("Failed     : %0d", failed);
+
+        if (failed == 0)
+            $display("✅ All tests passed successfully.");
+        else
+            $display("❌ Some tests failed. Please review.");
+
         $finish;
     end
 endmodule
