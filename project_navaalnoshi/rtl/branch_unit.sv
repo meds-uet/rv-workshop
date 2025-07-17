@@ -8,10 +8,6 @@
 // MEDS Workshop: "Build your own RISC-V Processor in a day"
 // =============================================================================
 
-// =============================================================================
-// BRANCH UNIT MODULE
-// =============================================================================
-
 module branch_unit (
     input  logic [31:0] rd1, rd2,
     input  logic [2:0]  funct3,
@@ -42,7 +38,7 @@ module branch_unit (
         endcase
     end
 
-    // TODO: Set pc_src = branch & branch_condition
+    // Set pc_src = branch & branch_condition
     assign pc_src = branch & branch_condition;
 
 endmodule
