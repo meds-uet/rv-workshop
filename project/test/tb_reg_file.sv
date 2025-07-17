@@ -7,7 +7,7 @@
 // RISC-V Register File Testbench
 // =============================================================================
 
-module tb_register_file;
+module tb_reg_file;
 
     logic clk, we;
     logic [4:0] ra1, ra2, wa;
