@@ -1,0 +1,19 @@
+# vsim -c tb_riscv_processor -do "run -all; quit" 
+# Start time: 17:59:09 on Jul 17,2025
+# Loading sv_std.std
+# Loading work.tb_riscv_processor
+# Loading work.riscv_processor
+# Loading work.pc
+# Loading work.imem
+# ** Error: (vsim-3033) Instantiation of 'register_file' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_riscv_processor/dut File: verif/tb_processor.sv Line: 53
+#         Searched libraries:
+#             /home/waleed/forked_meds_workshop/rv-workshop/project_waleed_akram/work
+# Loading work.immgen
+# Loading work.control
+# Loading work.alu
+# Loading work.dmem
+# Loading work.branch_unit
+# Error loading design
+# End time: 17:59:10 on Jul 17,2025, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 0

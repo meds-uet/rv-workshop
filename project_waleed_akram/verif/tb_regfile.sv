@@ -7,8 +7,8 @@
 // RISC-V Register File Testbench
 // =============================================================================
 
-module tb_register_file;
-
+module tb_reg_file;
+    logic reset;
     logic clk, we;
     logic [4:0] ra1, ra2, wa;
     logic [31:0] wd;
@@ -20,7 +20,8 @@ module tb_register_file;
         .clk(clk), .we(we),
         .ra1(ra1), .ra2(ra2),
         .wa(wa), .wd(wd),
-        .rd1(rd1), .rd2(rd2)
+        .rd1(rd1), .rd2(rd2),
+        .reset(reset)
     );
 
     always #5 clk = ~clk;
@@ -43,6 +44,9 @@ module tb_register_file;
         ra1 = 0; ra2 = 0; wa = 0; wd = 0;
 
         $display("=== Register File Testbench Start ===");
+
+        reset = 1; #10; // Reset the DUT
+        reset = 0; #10; // Release reset
 
         #10;
         check_read(0, 0, 0, 0, "Read x0 init");

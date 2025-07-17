@@ -10,6 +10,7 @@
 module tb_dmem;
 
     // Inputs
+    logic reset;
     logic clk;
     logic we;
     logic [31:0] addr;
@@ -26,7 +27,8 @@ module tb_dmem;
         .we(we),
         .addr(addr),
         .wdata(wdata),
-        .rdata(rdata)
+        .rdata(rdata),
+        .reset(reset)
     );
 
     // Clock generation (10ns period)
@@ -54,8 +56,13 @@ module tb_dmem;
         addr = 0;
         wdata = 0;
 
+
         #10; // Wait for memory init
 
+        reset = 1; #10; // Reset the DUT
+        reset = 0; #10; // Release reset
+
+        #10;
         // Test 1: Read from zero-initialized memory
         addr = 32'h0000_0000;
         #10;
