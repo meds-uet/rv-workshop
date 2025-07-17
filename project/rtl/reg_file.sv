@@ -19,7 +19,7 @@ module register_file (
 
     always_ff @(posedge clk) begin
         if (reset)
-            for (int i = 0; i < 32; i++) begin
+            for (int i = 1; i < 32; i++) begin
                 registers[i] = 32'h0;
             end
         else if (we && wa != 0)
@@ -29,7 +29,7 @@ module register_file (
     assign rd1 = (ra1 == 5'b00000) ? 32'h0000_0000 : registers[ra1];
     assign rd2 = (ra2 == 5'b00000) ? 32'h0000_0000 : registers[ra2];
 
-    assign registers[0] = 32'h0;
+    // assign registers[0] = 32'h0;
 
 
 endmodule

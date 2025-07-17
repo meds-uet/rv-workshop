@@ -18,7 +18,7 @@ module imm_gen (
             3'b000: // I-type 
                 imm_ext = {{20{instruction[31]}}, instruction[31:20]};
             3'b001: // S-type
-                imm_ext = {{19{instruction[31]}}, instruction[31:25], instruction[11:6]};
+                imm_ext = {{20{instruction[31]}}, instruction[31:25], instruction[11:7]};
             3'b010: // B-type
                 imm_ext = {{19{instruction[31]}}, instruction[31], instruction[7], instruction[30:25], instruction[11:8], 1'b0};   
             3'b011: // U-type
