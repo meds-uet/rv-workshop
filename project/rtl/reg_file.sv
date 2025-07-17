@@ -19,7 +19,7 @@ module register_file (
 
     always_ff @(posedge clk) begin
         if (reset)
-            for (int i = 0; i < 1024; i++) begin
+            for (int i = 0; i < 32; i++) begin
                 registers[i] = 32'h0;
             end
         else if (we && wa != 0)
