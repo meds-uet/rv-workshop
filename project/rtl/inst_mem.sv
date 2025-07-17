@@ -27,10 +27,7 @@ module imem (
         mem[1] = 32'h00a00113; // addi x2, x0, 10
         mem[2] = 32'h002081b3; // add  x3, x1, x2
         mem[3] = 32'h40218233; // sub  x4, x3, x2
-        mem[4] = 32'h0041a023; // sw   x4, 0(x3)
-        mem[5] = 32'h0001a503; // lw   x10, 0(x3)
-        mem[6] = 32'h0062a263; // beq  x5, x6, offset (example only, depends on offset encoding)
-        mem[7] = 32'h0000006f; // jal  x0, 0 (infinite loop)
+    end
 
         // Remaining entries stay as NOP
 
