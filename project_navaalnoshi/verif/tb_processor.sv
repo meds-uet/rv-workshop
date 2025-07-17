@@ -47,7 +47,7 @@ module tb_riscv_processor;
                 32'h00000000: check_instr(32'h00500093, "ADDI x1, x0, 5");
                 32'h00000004: check_instr(32'h00600113, "ADDI x2, x0, 6");
                 32'h00000008: check_instr(32'h002081b3, "ADD x3, x1, x2");
-                32'h0000000C: check_instr(32'h00000013, "NOP");
+                32'h0000000C: check_instr(32'h403101b3, "SUB x3, x2, x3");
                 default: check_instr(32'h00000013, "Default NOP");
             endcase
             #10;
