@@ -44,9 +44,11 @@ module tb_imem;
         run_test(32'h0000_0000, 32'h00500093, "ADDI x1, x0, 5");
         run_test(32'h0000_0004, 32'h00600113, "ADDI x2, x0, 6");
         run_test(32'h0000_0008, 32'h002081b3, "ADD x3, x1, x2");
-        run_test(32'h0000_000C, 32'h00000013, "NOP");
+        run_test(32'h0000_000C, 32'h40218233, "SUB x4, x3, x2");       // bug fixed
+        run_test(32'h0000_0010, 32'h00000013, "NOP");
         run_test(32'h0000_0050, 32'h00000013, "Uninitialized memory");
         run_test(32'h0000_0005, 32'h00600113, "Misaligned address");
+
 
         $display("=== IMEM Summary ===");
         $display("Total: %0d | Passed: %0d | Failed: %0d", total, passed, failed);
