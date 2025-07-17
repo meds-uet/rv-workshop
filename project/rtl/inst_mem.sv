@@ -22,6 +22,6 @@ module imem (
     end
 
     // Word-aligned access
-    assign instruction = mem[addr[31:2]];
+    assign instruction = mem[addr >> 2];
 
 endmodule
