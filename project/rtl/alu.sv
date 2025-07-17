@@ -34,6 +34,7 @@ module alu (
             4'b0000: result = a + b;              // ADD
             4'b0001: result = a - b;              // SUB
             4'b0010: result = a & b;              // AND
+            4'b0011: result = a | b;              // OR
             4'b0100: result = a ^ b;              // XOR
             4'b0101: result = a << b[4:0];             // Shift Logical Left
             4'b0110: result = a >> b[4:0];             // Shift Logical Right
@@ -45,7 +46,6 @@ module alu (
         endcase
     end
 
-    // TODO: Set 'zero' flag based on result
     assign zero = (result == 32'h0000_0000);
 
 endmodule
