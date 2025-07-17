@@ -369,7 +369,6 @@ module control (
                 alu_control = 4'b0000; // ADD
             end
         
-
             7'b1100011: begin
                 branch     = 1;
                 imm_src    = 3'b010; // B-type immediate
@@ -390,8 +389,6 @@ module control (
                 alu_control = 4'b0000; // Just pass upper immediate
             end
 
-            
-           
             default: begin
                 // NOP or unsupported instruction
             end
