@@ -15,14 +15,25 @@ module immgen (
 
     always_comb begin
         case (imm_src)
-            3'b000: // I-type (Example completed)
+            // I-type: imm[11:0] = instruction[31:20]
+            3'b000: 
                 imm_ext = {{20{instruction[31]}}, instruction[31:20]};
             
-            // TODO: Implement remaining immediate types
-            // 3'b001: S-type
-            // 3'b010: B-type
-            // 3'b011: U-type
-            // 3'b100: J-type
+            // S-type: imm[11:5] = instruction[31:25], imm[4:0] = instruction[11:7]
+            3'b001:
+                imm_ext = {{20{instruction[31]}}, instruction[31:25], instruction[11:7]};
+
+            // B-type: imm[12|10:5|4:1|11] = instruction[31|30:25|11:8|7], LSB = 0
+            3'b010:
+                imm_ext = {{19{instruction[31]}}, instruction[31], instruction[7], instruction[30:25], instruction[11:8], 1'b0};
+
+            // U-type: imm[31:12] = instruction[31:12], LSBs = 12'b0
+            3'b011:
+                imm_ext = {instruction[31:12], 12'b0};
+
+            // J-type: imm[20|10:1|11|19:12] = instruction[31|30:21|20|19:12], LSB = 0
+            3'b100:
+                imm_ext = {{11{instruction[31]}}, instruction[31], instruction[19:12], instruction[20], instruction[30:21], 1'b0};
 
             default:
                 imm_ext = 32'h0000_0000;
