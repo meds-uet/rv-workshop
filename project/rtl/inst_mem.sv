@@ -12,26 +12,23 @@ module imem (
     output logic [31:0] instruction
 );
 
-    logic [31:0] mem [0:1023]; // 4KB instruction memory
+    logic [31:0] mem [0:1023]; // 4KB instruction memory (1024 words of 4 bytes)
 
     initial begin
         integer i;
 
-        // Fill memory with NOPs (addi x0, x0, 0)
-        for (i = 0; i < 1024; i = i + 1) begin
-            mem[i] = 32'h00000013; // NOP
-        end
+        // Initialize entire memory with NOPs
+        for (i = 0; i < 1024; i = i + 1)
+            mem[i] = 32'h00000013; // NOP = addi x0, x0, 0
 
-        // Example test instructions
+        // Test instructions
         mem[0] = 32'h00500093; // addi x1, x0, 5
-        mem[1] = 32'h00a00113; // addi x2, x0, 10
+        mem[1] = 32'h00600113; // addi x2, x0, 6
         mem[2] = 32'h002081b3; // add  x3, x1, x2
-        mem[3] = 32'h40218233; // sub  x4, x3, x2
+        mem[3] = 32'h403101b3; // sub  x3, x2, x3 (rd=x3, rs1=x2, rs2=x3, funct7=0x20)
     end
 
-        // Remaining entries stay as NOP
-
-    // Word-aligned access
+    // Word-aligned instruction fetch (ignores lower 2 bits of addr)
     assign instruction = mem[addr[31:2]];
 
 endmodule
