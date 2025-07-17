@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE file for details.
 // SPDX-License-Identifier: Apache-2.0
 //
-// Author: Umer Shahid (@umershahidengr)
+// Author: Talha Ayyaz (@talhaticx)
 // =============================================================================
 // Single-Cycle RISC-V Processor - Complete Implementation
 // MEDS Workshop: "Build your own RISC-V Processor in a day"
@@ -17,24 +17,27 @@ module alu (
 );
 
     always_comb begin
-        // TODO: Implement ALU operations based on alu_control signal
-        // alu_control encoding:
-        // 0000: ADD
-        // 0001: SUB
-        // 0010: AND
-        // 0011: OR
-        // 0100: XOR
-        // 0101: SLL (Shift Left Logical)
-        // 0110: SRL (Shift Right Logical)
-        // 0111: SRA (Shift Right Arithmetic)
-        // 1000: SLT (Set Less Than - signed)
-        // 1001: SLTU (Set Less Than - unsigned)
 
         case (alu_control)
             4'b0000: result = a + b;              // ADD
             4'b0001: result = a - b;              // SUB
             4'b0010: result = a & b;              // AND
-            // TODO: Complete rest of the ALU operations
+            4'b0011: result = a | b;              // OR
+            4'b0100: result = a ^ b;              // XOR
+            4'b0101: result = a << b;             // SLL
+            4'b0110: result = a >> b;             // SRL
+            4'b0111: result = signed'(a) >>> b;   // SRA
+            4'b1000:                              // SLT
+                if (signed'(a) < signed'(b))
+                    result = 1;
+                else
+                    result = 0;
+            4'b1001:                              // SLTU
+                if (unsigned'(a) < unsigned'(b))
+                    result = 1;
+                else
+                    result = 0;
+
             default: result = 32'h0000_0000;
         endcase
     end
