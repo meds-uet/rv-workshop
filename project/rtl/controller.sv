@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE file for details.
 // SPDX-License-Identifier: Apache-2.0
 //
-// Author: Umer Shahid (@umershahidengr)
+// Author: Talha Ayyaz (@talhaticx)
 // =============================================================================
 // Single-Cycle RISC-V Processor - Complete Implementation
 // MEDS Workshop: "Build your own RISC-V Processor in a day"
@@ -12,7 +12,7 @@
 // CONTROL UNIT MODULE
 // =============================================================================
 
-module control (
+module controller (
     input  logic [6:0] opcode,
     input  logic [2:0] funct3,
     input  logic [6:0] funct7,
@@ -38,21 +38,67 @@ module control (
         alu_control = 4'b0000;
 
         case (opcode)
-            7'b0110011: begin // R-type (only ADD shown as example)
+
+            7'b0110011: begin // R-type 
                 reg_write = 1'b1;
-                case ({funct3, funct7[5]})
-                    4'b0000: alu_control = 4'b0000; // ADD
-                    // TODO: Implement other R-type operations
+
+                case (funct3)
+                    3'b000: alu_control = (funct7 == 7'b0100000) ? 4'b0001 : 4'b0000; // SUB : ADD
+                    3'b001: alu_control = 4'b0101; // SLL
+                    3'b010: alu_control = 4'b1000; // SLT
+                    3'b011: alu_control = 4'b1001; // SLTU
+                    3'b100: alu_control = 4'b0100; // XOR
+                    3'b101: alu_control = (funct7 == 7'b0100000) ? 4'b0111 : 4'b0110; // SRA : SRL
+                    3'b110: alu_control = 4'b0011; // OR
+                    3'b111: alu_control = 4'b0010; // AND
                 endcase
             end
 
-            // TODO: Implement remaining instruction types:
-            // I-type (0010011)
-            // Load (0000011)
-            // Store (0100011)
-            // Branch (1100011)
-            // JAL (1101111)
-            // LUI (0110111)
+            7'b0010011: begin // I-type
+                reg_write = 1'b1;
+                alu_src   = 1'b1;
+
+                case (funct3)
+                    3'b000: alu_control = 4'b0000; // ADDI
+                    3'b010: alu_control = 4'b1000; // SLTI
+                    3'b100: alu_control = 4'b0100; // XORI
+                    3'b110: alu_control = 4'b0011; // ORI
+                    3'b111: alu_control = 4'b0010; // ANDI
+                endcase
+            end
+
+            7'b0000011: begin // Load
+                reg_write = 1;
+                alu_src = 1;
+                result_src = 1;
+                reg_write = 1;
+            end
+
+            7'b0100011: begin // STORE
+                alu_src = 1;
+                mem_write = 1;
+                imm_src = 3'b001;
+
+            end
+
+            7'b1100011: begin // BRANCH
+                branch    = 1;
+                imm_src   = 3'b010;
+                case (funct3)
+                    3'b000: alu_control = 4'b0001; // BEQ → SUB
+                    3'b001: alu_control = 4'b0001; // BNE → SUB
+                    3'b100: alu_control = 4'b1000; // BLT → SLT
+                    3'b101: alu_control = 4'b1000; // BGE → SLT
+                endcase
+            end
+
+            // JAL
+            7'b1101111: begin // JAL
+                reg_write = 1;
+                jump      = 1;
+                imm_src   = 3'b100;
+                result_src = 2; // assumes mux with 3 inputs: 0=ALU, 1=mem, 2=PC+4
+            end
 
             default: begin
                 // NOP or unsupported instruction

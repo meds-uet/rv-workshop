@@ -7,7 +7,7 @@
 // RISC-V Instruction Memory Testbench
 // =============================================================================
 
-module tb_imem;
+module tb_inst_mem;
 
     logic [31:0] addr;
     wire [31:0] instruction;
