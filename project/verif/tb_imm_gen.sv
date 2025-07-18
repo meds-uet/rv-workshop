@@ -2,61 +2,69 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE file for details.
 // SPDX-License-Identifier: Apache-2.0
 //
-// Author: Umer Shahid (@umershahidengr)
+// Author: Javeria
 // =============================================================================
 // RISC-V Immediate Generator Testbench
 // =============================================================================
 
 module tb_immgen;
-
     logic [31:0] instruction;
-    logic [2:0] imm_src;
-    wire [31:0] imm_ext;
+    wire [31:0] immediate_value;
 
     int passed = 0, failed = 0, total = 0;
 
-    immgen dut (
+    Immediate_Generator dut (
         .instruction(instruction),
-        .imm_src(imm_src),
-        .imm_ext(imm_ext)
+        .immediate_value(immediate_value)
     );
 
     task run_test(
         input logic [31:0] instr,
-        input logic [2:0] src,
         input logic [31:0] expected,
         input string desc
     );
         begin
             instruction = instr;
-            imm_src = src;
-            #1;
-
+            #10;  // Increased delay to ensure settling
+            
             total++;
-            if (imm_ext === expected) begin
+            if (immediate_value === expected) begin
                 passed++;
-                $display("[PASS] %s | imm_ext = %h", desc, imm_ext);
+                $display("[PASS] %s | imm = %h", desc, immediate_value);
             end else begin
                 failed++;
-                $display("[FAIL] %s | imm_ext = %h, expected = %h", desc, imm_ext, expected);
+                $display("[FAIL] %s | imm = %h, expected = %h", desc, immediate_value, expected);
             end
         end
     endtask
 
     initial begin
-        $display("=== IMMGEN Testbench Start ===");
+        $display("\n=== IMMGEN Testbench Start ===\n");
 
-        run_test(32'hFFF12383, 3'b000, 32'hFFFFF123, "I-type (sign-ext)");
-        run_test(32'h00F12323, 3'b001, 32'h00000F12, "S-type (store offset)");
-        run_test(32'hFE512EE3, 3'b010, 32'hFFFFFFE4, "B-type (branch offset)");
-        run_test(32'h12345037, 3'b011, 32'h12345000, "U-type (LUI)");
-        run_test(32'hFFF0016F, 3'b100, 32'hFFFFF000, "J-type (JAL)");
-        run_test(32'h00000000, 3'b111, 32'h00000000, "Default imm");
+        // I-type (Load)
+      run_test(32'hFFF12383, 32'hFFFFFFFF, "I-type (Load)");
+        // I-type (ALU)
+      run_test(32'h00F12313, 32'h0000000F, "I-type (ALU)");
+        // S-type
+      run_test(32'h00F12323, 32'h00000006, "S-type (Store)");
+        // B-type
+      run_test(32'hFE512EE3, 32'hFFFFFFFC, "B-type (Branch)");
+        // U-type (LUI)
+        run_test(32'h12345037, 32'h12345000, "U-type (LUI)");
+        // U-type (AUIPC)
+        run_test(32'h12345017, 32'h12345000, "U-type (AUIPC)");
+        // J-type
+      run_test(32'hFFF0016F, 32'hFFF00FFE, "J-type (JAL)");
+        // R-type
+        run_test(32'h002081B3, 32'h00000000, "R-type (ADD)");
+        // Default case
+        run_test(32'h00000000, 32'h00000000, "NOP / Default");
 
-        $display("=== IMMGEN Summary ===");
+        $display("\n=== IMMGEN Summary ===");
         $display("Total: %0d | Passed: %0d | Failed: %0d", total, passed, failed);
         if (failed == 0) $display("✅ All tests passed.");
         else $display("❌ Some tests failed.");
+        
         $finish;
     end
 endmodule

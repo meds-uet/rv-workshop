@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE file for details.
 // SPDX-License-Identifier: Apache-2.0
 //
-// Author: Umer Shahid (@umershahidengr)
+// Author: javeria
 // =============================================================================
 // RISC-V PC Module Testbench (Enhanced with Checks)
 // =============================================================================
@@ -11,21 +11,21 @@ module tb_pc;
 
     // Inputs
     logic clk;
-    logic reset;
-    logic [31:0] pc_next;
+    logic rst;
+    logic [31:0] pc_in;
 
     // Output
-    wire [31:0] pc;
+    wire [31:0] pc_next;
 
     // Test bookkeeping
     int total = 0, passed = 0, failed = 0;
 
-    // Instantiate the PC module
-    pc dut (
+    // Instantiate the Program Counter module
+    Progam_Counter dut (
         .clk(clk),
-        .reset(reset),
-        .pc_next(pc_next),
-        .pc(pc)
+        .rst(rst),
+        .pc_in(pc_in),
+        .pc_next(pc_next)
     );
 
     // Clock generation (100MHz)
@@ -35,62 +35,62 @@ module tb_pc;
     task check(input [31:0] expected, input string desc);
         total++;
         #1;
-        if (pc === expected) begin
+        if (pc_next === expected) begin
             passed++;
-            $display("[PASS] %s | pc = %h", desc, pc);
+            $display("[PASS] %s | pc_next = %h", desc, pc_next);
         end else begin
             failed++;
-            $display("[FAIL] %s | pc = %h, expected = %h", desc, pc, expected);
+            $display("[FAIL] %s | pc_next = %h, expected = %h", desc, pc_next, expected);
         end
     endtask
 
     // Test sequence
     initial begin
-        $display("=== PC Module Testbench Start ===");
+        $display("=== Program Counter Testbench Start ===");
 
         // Initialize inputs
         clk = 0;
-        reset = 0;
-        pc_next = 0;
+        rst = 0;
+        pc_in = 0;
 
         // Test 1: Reset functionality
-        reset = 1;
-        pc_next = 32'h0000_0004;
+        rst = 1;
+        pc_in = 32'h0000_0004;
         #12;
         check(32'h0000_0000, "Test 1: PC Reset should be zero");
 
         // Test 2: Normal operation after reset deasserted
-        reset = 0;
-        pc_next = 32'h0000_0004;
+        rst = 0;
+        pc_in = 32'h0000_0004;
         #10;
         check(32'h0000_0004, "Test 2a: PC update to 0x4");
 
-        pc_next = 32'h0000_0008;
+        pc_in = 32'h0000_0008;
         #10;
         check(32'h0000_0008, "Test 2b: PC update to 0x8");
 
-        pc_next = 32'h0000_000C;
+        pc_in = 32'h0000_000C;
         #10;
         check(32'h0000_000C, "Test 2c: PC update to 0xC");
 
         // Test 3: Reset during operation
-        reset = 1;
-        pc_next = 32'h1234_5678;
+        rst = 1;
+        pc_in = 32'h1234_5678;
         #10;
         check(32'h0000_0000, "Test 3: Reset asserted again");
 
         // Test 4: Continue after reset
-        reset = 0;
-        pc_next = 32'hFFFF_FFFC;
+        rst = 0;
+        pc_in = 32'hFFFF_FFFC;
         #10;
         check(32'hFFFF_FFFC, "Test 4a: PC update to FFFF_FFFC");
 
-        pc_next = 32'hABCD_1234;
+        pc_in = 32'hABCD_1234;
         #10;
         check(32'hABCD_1234, "Test 4b: PC update to ABCD_1234");
 
         // Summary
-        $display("=== PC Module Testbench Summary ===");
+        $display("=== PC Testbench Summary ===");
         $display("Total tests : %0d", total);
         $display("Passed      : %0d", passed);
         $display("Failed      : %0d", failed);
@@ -102,3 +102,4 @@ module tb_pc;
         $finish;
     end
 endmodule
+
