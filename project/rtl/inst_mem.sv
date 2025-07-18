@@ -12,14 +12,18 @@ module imem (
     output logic [31:0] instruction
 );
 
-    logic [31:0] mem [0:1023]; // 4KB instruction memory
+    logic [31:0] mem [0:1023]; // 4KB instruction memory (1024 words)
 
     initial begin
-        // Example instruction
-        mem[0] = 32'h00500093; // addi x1, x0, 5
-
-        // TODO: Add more test instructions (e.g., addi, add, sub, etc.)
-        // TODO: Fill the remaining memory with NOPs (32'h00000013) using a for loop
+        // Match testbench expectations
+        mem[0] = 32'h00500093; // ADDI x1, x0, 5       @ 0x00
+        mem[1] = 32'h00600113; // ADDI x2, x0, 6       @ 0x04
+        mem[2] = 32'h002081b3; // ADD x3, x1, x2       @ 0x08
+        mem[3] = 32'h00000013; // NOP                  @ 0x0C
+        // All uninitialized instructions default to NOP
+        for (int i = 4; i < 1024; i++) begin
+            mem[i] = 32'h00000013;
+        end
     end
 
     // Word-aligned access
