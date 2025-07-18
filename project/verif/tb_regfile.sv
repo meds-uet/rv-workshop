@@ -9,7 +9,7 @@
 
 module tb_register_file;
 
-    logic clk, we;
+    logic clk, we, rst;
     logic [4:0] ra1, ra2, wa;
     logic [31:0] wd;
     wire [31:0] rd1, rd2;
@@ -20,7 +20,8 @@ module tb_register_file;
         .clk(clk), .we(we),
         .ra1(ra1), .ra2(ra2),
         .wa(wa), .wd(wd),
-        .rd1(rd1), .rd2(rd2)
+        .rd1(rd1), .rd2(rd2),
+        .rst(rst)
     );
 
     always #5 clk = ~clk;
@@ -41,10 +42,12 @@ module tb_register_file;
     initial begin
         clk = 0; we = 0;
         ra1 = 0; ra2 = 0; wa = 0; wd = 0;
+        rst = 1;
 
         $display("=== Register File Testbench Start ===");
 
         #10;
+        rst = 0;
         check_read(0, 0, 0, 0, "Read x0 init");
 
         wa = 5'd0; wd = 32'hDEAD_BEEF; we = 1;

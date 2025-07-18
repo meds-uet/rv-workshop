@@ -7,6 +7,7 @@
 // RISCV Processor Full-System Testbench
 // =============================================================================
 
+
 module tb_riscv_processor;
 
     logic clk, reset;
@@ -50,7 +51,7 @@ module tb_riscv_processor;
                 32'h0000000C: check_instr(32'h00000013, "NOP");
                 default: check_instr(32'h00000013, "Default NOP");
             endcase
-            #10;
+        #10;
         end
 
         $display("=== RISCV Processor Summary ===");

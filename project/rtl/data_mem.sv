@@ -9,6 +9,7 @@
 
 module dmem (
     input  logic        clk,
+    input  logic        rst,
     input  logic        we,
     input  logic [31:0] addr,
     input  logic [31:0] wdata,
@@ -18,6 +19,16 @@ module dmem (
     logic [31:0] mem [0:1023]; // 4KB data memory
 
     // TODO: Initialize memory to zero using a for loop
+    
+    always_ff @( posedge clk ) begin
+        if (rst) begin
+            for (int i = 0; i < 1024; i++) begin
+                mem[i] = 0;
+            end
+        end
+        else if (we)
+            mem[addr[31:2]] <= wdata;
+    end
 
     // Read operation
     assign rdata = mem[addr[31:2]];

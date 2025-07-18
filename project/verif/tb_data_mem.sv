@@ -11,6 +11,7 @@ module tb_dmem;
 
     // Inputs
     logic clk;
+    logic rst;
     logic we;
     logic [31:0] addr;
     logic [31:0] wdata;
@@ -23,6 +24,7 @@ module tb_dmem;
     // Instantiate DUT
     dmem dut (
         .clk(clk),
+        .rst(rst),
         .we(we),
         .addr(addr),
         .wdata(wdata),
@@ -53,9 +55,11 @@ module tb_dmem;
         we = 0;
         addr = 0;
         wdata = 0;
+        rst = 1;
 
         #10; // Wait for memory init
 
+        rst = 0;
         // Test 1: Read from zero-initialized memory
         addr = 32'h0000_0000;
         #10;
