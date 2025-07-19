@@ -29,10 +29,10 @@ r1
 !s85 0
 31
 Z6 !s108 1752757633.000000
-!s107 testbenches/tb_processor.sv|rtl/reg_file.sv|rtl/processor.sv|rtl/pc.sv|rtl/inst_mem.sv|rtl/imm_gen.sv|rtl/data_mem.sv|rtl/controller.sv|rtl/branch_unit.sv|rtl/alu.sv|
-Z7 !s90 rtl/alu.sv|rtl/branch_unit.sv|rtl/controller.sv|rtl/data_mem.sv|rtl/imm_gen.sv|rtl/inst_mem.sv|rtl/pc.sv|rtl/processor.sv|rtl/reg_file.sv|testbenches/tb_processor.sv|
+Z7 !s107 testbenches/tb_processor.sv|rtl/reg_file.sv|rtl/processor.sv|rtl/pc.sv|rtl/inst_mem.sv|rtl/imm_gen.sv|rtl/data_mem.sv|rtl/controller.sv|rtl/branch_unit.sv|rtl/alu.sv|
+Z8 !s90 rtl/alu.sv|rtl/branch_unit.sv|rtl/controller.sv|rtl/data_mem.sv|rtl/imm_gen.sv|rtl/inst_mem.sv|rtl/pc.sv|rtl/processor.sv|rtl/reg_file.sv|testbenches/tb_processor.sv|
 !i113 1
-Z8 tCvgOpt 0
+Z9 tCvgOpt 0
 vbranch_unit
 R1
 R2
@@ -53,13 +53,13 @@ r1
 !s85 0
 31
 R6
-Z9 !s107 testbenches/tb_processor.sv|rtl/reg_file.sv|rtl/processor.sv|rtl/pc.sv|rtl/inst_mem.sv|rtl/imm_gen.sv|rtl/data_mem.sv|rtl/controller.sv|rtl/branch_unit.sv|rtl/alu.sv|
 R7
-!i113 1
 R8
+!i113 1
+R9
 vcontrol
 R1
-R2
+Z10 !s110 1752907584
 !i10b 1
 !s100 l1B[j@DUGidh7nMPk=;nY2
 R3
@@ -70,17 +70,17 @@ R0
 w1752756210
 8rtl/controller.sv
 Frtl/controller.sv
-!i122 43
+!i122 45
 L0 15 111
 R5
 r1
 !s85 0
 31
-R6
-R9
-R7
+Z11 !s108 1752907584.000000
+Z12 !s107 verif/tb_controller.sv|rtl/controller.sv|
+Z13 !s90 rtl/controller.sv|verif/tb_controller.sv|
 !i113 1
-R8
+R9
 vdmem
 R1
 R2
@@ -101,34 +101,34 @@ r1
 !s85 0
 31
 R6
-R9
 R7
-!i113 1
 R8
+!i113 1
+R9
 vimem
 R1
-R2
+Z14 !s110 1752907535
 !i10b 1
-!s100 <@gm?GeR;0haN0=@1kic[3
+!s100 HT[URakRGA@;D7nGDm:EM0
 R3
-IRZH:98Q<LNT3_Gac0:zMF3
+I6HL]F6KfXL?]E0Am;a5j41
 R4
 S1
 R0
-w1752748789
+w1752907391
 8rtl/inst_mem.sv
 Frtl/inst_mem.sv
-!i122 43
-L0 10 27
+!i122 44
+L0 10 28
 R5
 r1
 !s85 0
 31
-R6
-R9
-R7
+Z15 !s108 1752907535.000000
+Z16 !s107 verif/tb_inst_mem.sv|rtl/inst_mem.sv|
+Z17 !s90 rtl/inst_mem.sv|verif/tb_inst_mem.sv|
 !i113 1
-R8
+R9
 vimmgen
 R1
 R2
@@ -149,10 +149,10 @@ r1
 !s85 0
 31
 R6
-R9
 R7
-!i113 1
 R8
+!i113 1
+R9
 vpc
 R1
 R2
@@ -173,10 +173,10 @@ r1
 !s85 0
 31
 R6
-R9
 R7
-!i113 1
 R8
+!i113 1
+R9
 vregister_file
 R1
 R2
@@ -197,34 +197,34 @@ r1
 !s85 0
 31
 R6
-R9
 R7
-!i113 1
 R8
+!i113 1
+R9
 vriscv_processor
 R1
-R2
+Z18 !s110 1752907853
 !i10b 1
-!s100 eO<236b^N><1OJZoN^R]42
+!s100 1M8?nViVEm9`:kV]YkNZB1
 R3
-I<a>md]:Zb@FknK>TOloN=2
+ICj7K>=lKzV<hmio747L^U0
 R4
 S1
 R0
-w1752756865
+w1752907726
 8rtl/processor.sv
 Frtl/processor.sv
-!i122 43
+!i122 48
 L0 9 103
 R5
 r1
 !s85 0
 31
-R6
-R9
-R7
+Z19 !s108 1752907853.000000
+!s107 verif/tb_processor.sv|rtl/processor.sv|
+Z20 !s90 rtl/processor.sv|verif/tb_processor.sv|
 !i113 1
-R8
+R9
 vtb_alu
 R1
 !s110 1752739826
@@ -235,7 +235,7 @@ I4_lI;zZAR8aJ@]KlgW1;F0
 R4
 S1
 R0
-Z10 w1752734404
+Z21 w1752734404
 8verif/tb_alu.sv
 Fverif/tb_alu.sv
 !i122 3
@@ -248,7 +248,7 @@ r1
 !s107 verif/tb_alu.sv|rtl/alu.sv|
 !s90 rtl/alu.sv|verif/tb_alu.sv|
 !i113 1
-R8
+R9
 vtb_branch_unit
 R1
 !s110 1752756278
@@ -259,7 +259,7 @@ I_oTGKbSkiE6ebQK]D@H0G1
 R4
 S1
 R0
-R10
+R21
 8verif/tb_branch_unit.sv
 Fverif/tb_branch_unit.sv
 !i122 32
@@ -272,10 +272,10 @@ r1
 !s107 verif/tb_branch_unit.sv|rtl/branch_unit.sv|
 !s90 rtl/branch_unit.sv|verif/tb_branch_unit.sv|
 !i113 1
-R8
+R9
 vtb_control
 R1
-!s110 1752756215
+R10
 !i10b 1
 !s100 UOjl9g:B;:fKSK8V7ilgM0
 R3
@@ -286,17 +286,17 @@ R0
 w1752754821
 8verif/tb_controller.sv
 Fverif/tb_controller.sv
-!i122 31
+!i122 45
 L0 1 104
 R5
 r1
 !s85 0
 31
-!s108 1752756214.000000
-!s107 verif/tb_controller.sv|rtl/controller.sv|
-!s90 rtl/controller.sv|verif/tb_controller.sv|
+R11
+R12
+R13
 !i113 1
-R8
+R9
 vtb_dmem
 R1
 !s110 1752742253
@@ -320,10 +320,10 @@ r1
 !s107 verif/tb_data_mem.sv|rtl/data_mem.sv|
 !s90 rtl/data_mem.sv|verif/tb_data_mem.sv|
 !i113 1
-R8
+R9
 vtb_imem
 R1
-!s110 1752748670
+R14
 !i10b 1
 !s100 NI9ZOPg[FEBcRLQ>c:KAW0
 R3
@@ -331,20 +331,20 @@ IM]3zZTeeLFX0bW6gZeUTb0
 R4
 S1
 R0
-R10
+R21
 8verif/tb_inst_mem.sv
 Fverif/tb_inst_mem.sv
-!i122 22
+!i122 44
 L0 10 48
 R5
 r1
 !s85 0
 31
-!s108 1752748669.000000
-!s107 verif/tb_inst_mem.sv|rtl/inst_mem.sv|
-!s90 rtl/inst_mem.sv|verif/tb_inst_mem.sv|
+R15
+R16
+R17
 !i113 1
-R8
+R9
 vtb_immgen
 R1
 !s110 1752745498
@@ -359,7 +359,7 @@ w1752744590
 8verif/tb_imm_gen.sv
 Fverif/tb_imm_gen.sv
 !i122 18
-Z11 L0 10 53
+Z22 L0 10 53
 R5
 r1
 !s85 0
@@ -368,7 +368,7 @@ r1
 !s107 verif/tb_imm_gen.sv|rtl/imm_gen.sv|
 !s90 rtl/imm_gen.sv|verif/tb_imm_gen.sv|
 !i113 1
-R8
+R9
 vtb_pc
 R1
 !s110 1752745742
@@ -379,7 +379,7 @@ IZzf@>VTXagA]><`kUi]j61
 R4
 S1
 R0
-R10
+R21
 8verif/tb_pc.sv
 Fverif/tb_pc.sv
 !i122 19
@@ -392,10 +392,10 @@ r1
 !s107 verif/tb_pc.sv|rtl/pc.sv|
 !s90 rtl/pc.sv|verif/tb_pc.sv|
 !i113 1
-R8
+R9
 vtb_riscv_processor
 R1
-!s110 1752756938
+R18
 !i10b 1
 !s100 0VzK5Zz7aBM5F^NiiL``F1
 R3
@@ -403,17 +403,17 @@ ILFGk=nS2Go6P1KMngVT<22
 R4
 S1
 R0
-R10
+w1752907849
 8verif/tb_processor.sv
 Fverif/tb_processor.sv
-!i122 40
-R11
+!i122 48
+R22
 R5
 r1
 !s85 0
 31
-!s108 1752756938.000000
-!s107 verif/tb_processor.sv|rtl/processor.sv|
-!s90 rtl/processor.sv|verif/tb_processor.sv|
+R19
+Z23 !s107 verif/tb_processor.sv|rtl/processor.sv|
+R20
 !i113 1
-R8
+R9

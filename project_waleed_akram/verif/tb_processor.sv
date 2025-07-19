@@ -4,108 +4,59 @@
 //
 // Author: Umer Shahid (@umershahidengr)
 // =============================================================================
-// Single-Cycle RISC-V Processor - Top-Level Module (Workshop Skeleton Version)
+// RISCV Processor Full-System Testbench
 // =============================================================================
-module riscv_processor (
-    input  logic clk,
-    input  logic reset,
-    output logic [31:0] pc_out,
-    output logic [31:0] instruction_out
-);
-    logic [31:0] pc, pc_next, instruction;
-    logic [31:0] rd1, rd2, imm_ext;
-    logic [31:0] src_a, src_b, alu_result, read_data, result;
-    logic        zero, pc_src;
 
-    logic        reg_write, alu_src, mem_write, branch, jump, mem_read, mem_to_reg;
-    logic [2:0]  imm_src;
-    logic [3:0]  alu_control;
+module tb_riscv_processor;
 
-    logic [4:0] rs1, rs2, rd;
+    logic clk, reset;
+    wire [31:0] pc_out, instruction_out;
 
-    assign pc_out = pc;
-    assign instruction_out = instruction;
+    int passed = 0, failed = 0, total = 0;
 
-    assign rs1 = instruction[19:15];
-    assign rs2 = instruction[24:20];
-    assign rd  = instruction[11:7];
-
-    assign pc_next = (branch && pc_src) ? (pc + imm_ext) :
-                     (jump) ? (pc + imm_ext) :
-                     (pc + 4);
-
-    assign src_a = rd1;
-    assign src_b = alu_src ? imm_ext : rd2;
-    assign result = mem_to_reg ? read_data : alu_result;
-
-    pc pc_reg (
+    riscv_processor dut (
         .clk(clk),
         .reset(reset),
-        .pc_next(pc_next),
-        .pc(pc)
+        .pc_out(pc_out),
+        .instruction_out(instruction_out)
     );
 
-    imem instruction_memory (
-        .addr(pc),
-        .instruction(instruction)
-    );
+    always #5 clk = ~clk;
 
-    register_file rf (
-        .clk(clk),
-        .reset(reset),
-        .we(reg_write),
-        .ra1(rs1),
-        .ra2(rs2),
-        .wa(rd),
-        .wd(result),
-        .rd1(rd1),
-        .rd2(rd2)
-    );
+    task check_instr(input [31:0] expected, input string msg);
+        #1;
+        total++;
+        if (instruction_out === expected) begin
+            passed++;
+            $display("[PASS] %s | PC = %h, Instr = %h", msg, pc_out, instruction_out);
+        end else begin
+            failed++;
+            $display("[FAIL] %s | PC = %h, Instr = %h (expected %h)", msg, pc_out, instruction_out, expected);
+        end
+    endtask
 
-    immgen imm_gen (
-        .instruction(instruction),
-        .imm_src(imm_src),
-        .imm_ext(imm_ext)
-    );
+    initial begin
+        $display("=== RISCV Processor Test Start ===");
+        clk = 0;
+        reset = 1;
+        #20;
+        reset = 0;
 
-    control control_unit (
-        .opcode(instruction[6:0]),
-        .funct3(instruction[14:12]),
-        .funct7(instruction[31:25]),
-        .reg_write(reg_write),
-        .imm_src(imm_src),
-        .alu_src(alu_src),
-        .mem_write(mem_write),
-        .mem_to_reg(mem_to_reg),
-        .branch(branch),
-        .mem_read(mem_read),
-        .jump(jump),
-        .alu_control(alu_control)
-    );
+        repeat (10) begin
+            case (pc_out)
+                32'h00000000: check_instr(32'h00500093, "ADDI x1, x0, 5");
+                32'h00000004: check_instr(32'h00600113, "ADDI x2, x0, 6");
+                32'h00000008: check_instr(32'h002081b3, "ADD x3, x1, x2");
+                32'h0000000C: check_instr(32'h00000013, "NOP");
+                default: check_instr(32'h00000013, "Default NOP");
+            endcase
+            #10;
+        end
 
-    alu alu_unit (
-        .a(src_a),
-        .b(src_b),
-        .alu_control(alu_control),
-        .result(alu_result),
-        .zero(zero)
-    );
-
-    dmem data_memory (
-        .clk(clk),
-        .we(mem_write),
-        .reset(reset),
-        .addr(alu_result),
-        .wdata(rd2),
-        .rdata(read_data)
-    );
-
-    branch_unit branch_logic (
-        .rd1(rd1),
-        .rd2(rd2),
-        .funct3(instruction[14:12]),
-        .branch(branch),
-        .pc_src(pc_src)
-    );
-
+        $display("=== RISCV Processor Summary ===");
+        $display("Total: %0d | Passed: %0d | Failed: %0d", total, passed, failed);
+        if (failed == 0) $display("✅ All tests passed.");
+        else $display("❌ Some tests failed.");
+        $finish;
+    end
 endmodule

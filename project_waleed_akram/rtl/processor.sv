@@ -17,7 +17,7 @@ module riscv_processor (
     logic [31:0] src_a, src_b, alu_result, read_data, result;
     logic        zero, pc_src;
 
-    logic        reg_write, alu_src, mem_write, branch, jump, mem_read, mem_to_reg;
+    logic        reg_write, alu_src, mem_write, branch, jump, mem_read;
     logic [2:0]  imm_src;
     logic [3:0]  alu_control;
 
@@ -36,7 +36,7 @@ module riscv_processor (
 
     assign src_a = rd1;
     assign src_b = alu_src ? imm_ext : rd2;
-    assign result = mem_to_reg ? read_data : alu_result;
+   
 
     pc pc_reg (
         .clk(clk),
@@ -76,7 +76,7 @@ module riscv_processor (
         .imm_src(imm_src),
         .alu_src(alu_src),
         .mem_write(mem_write),
-        .mem_to_reg(mem_to_reg),
+        
         .branch(branch),
         .mem_read(mem_read),
         .jump(jump),

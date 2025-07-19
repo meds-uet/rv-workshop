@@ -1,19 +1,35 @@
 # vsim -c tb_riscv_processor -do "run -all; quit" 
-# Start time: 17:59:09 on Jul 17,2025
+# Start time: 11:50:57 on Jul 19,2025
 # Loading sv_std.std
 # Loading work.tb_riscv_processor
 # Loading work.riscv_processor
 # Loading work.pc
 # Loading work.imem
-# ** Error: (vsim-3033) Instantiation of 'register_file' failed. The design unit was not found.
-#    Time: 0 ps  Iteration: 0  Instance: /tb_riscv_processor/dut File: verif/tb_processor.sv Line: 53
-#         Searched libraries:
-#             /home/waleed/forked_meds_workshop/rv-workshop/project_waleed_akram/work
+# Loading work.register_file
 # Loading work.immgen
 # Loading work.control
 # Loading work.alu
 # Loading work.dmem
 # Loading work.branch_unit
-# Error loading design
-# End time: 17:59:10 on Jul 17,2025, Elapsed time: 0:00:01
-# Errors: 1, Warnings: 0
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'control_unit'.  Expected 12, found 11.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_riscv_processor/dut/control_unit File: rtl/processor.sv Line: 71
+# ** Warning: (vsim-3722) rtl/processor.sv(71): [TFMPC] - Missing connection for port 'result_src'.
+# run -all
+# === RISCV Processor Test Start ===
+# [PASS] ADDI x1, x0, 5 | PC = 00000000, Instr = 00500093
+# [PASS] ADDI x2, x0, 6 | PC = 00000004, Instr = 00600113
+# [PASS] ADD x3, x1, x2 | PC = 00000008, Instr = 002081b3
+# [PASS] NOP | PC = 0000000c, Instr = 00000013
+# [PASS] Default NOP | PC = 00000010, Instr = 00000013
+# [PASS] Default NOP | PC = 00000018, Instr = 00000013
+# [PASS] Default NOP | PC = 0000001c, Instr = 00000013
+# [PASS] Default NOP | PC = 00000020, Instr = 00000013
+# [PASS] Default NOP | PC = 00000024, Instr = 00000013
+# [PASS] Default NOP | PC = 00000028, Instr = 00000013
+# === RISCV Processor Summary ===
+# Total: 10 | Passed: 10 | Failed: 0
+# ✅ All tests passed.
+# ** Note: $finish    : verif/tb_processor.sv(60)
+#    Time: 130 ps  Iteration: 0  Instance: /tb_riscv_processor
+# End time: 11:50:57 on Jul 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2
