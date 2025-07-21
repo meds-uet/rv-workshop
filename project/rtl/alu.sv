@@ -1,14 +1,3 @@
-// Copyright 2025 Maktab-e-Digital Systems Lahore.
-// Licensed under the Apache License, Version 2.0, see LICENSE file for details.
-// SPDX-License-Identifier: Apache-2.0
-//
-// Author: Umer Shahid (@umershahidengr)
-// =============================================================================
-// Single-Cycle RISC-V Processor - Complete Implementation
-// MEDS Workshop: "Build your own RISC-V Processor in a day"
-// =============================================================================
-
-
 module alu (
     input  logic [31:0] a, b,
     input  logic [3:0]  alu_control,
@@ -35,6 +24,13 @@ module alu (
             4'b0001: result = a - b;              // SUB
             4'b0010: result = a & b;              // AND
             // TODO: Complete rest of the ALU operations
+            4'b0011: result = a | b;              // OR
+            4'b0100: result = a ^ b;              // XOR
+            4'b1000: result = $signed(a) < $signed(b);    //SLT
+             4'b1000: result = a < b;           // SLTU
+            4'b0101: result = a << b;             // SLL
+            4'b0110: result = a >> b;             // SRL
+            4'b0111: result = $signed(a) >>> b;   // SRA
             default: result = 32'h0000_0000;
         endcase
     end

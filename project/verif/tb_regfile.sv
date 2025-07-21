@@ -9,7 +9,7 @@
 
 module tb_register_file;
 
-    logic clk, we;
+    logic clk, reset,we;
     logic [4:0] ra1, ra2, wa;
     logic [31:0] wd;
     wire [31:0] rd1, rd2;
@@ -17,6 +17,7 @@ module tb_register_file;
     int passed = 0, failed = 0, total = 0;
 
     register_file dut (
+        .reset(reset),
         .clk(clk), .we(we),
         .ra1(ra1), .ra2(ra2),
         .wa(wa), .wd(wd),
@@ -39,8 +40,11 @@ module tb_register_file;
     endtask
 
     initial begin
-        clk = 0; we = 0;
+        clk = 0; we = 0;reset = 1;
         ra1 = 0; ra2 = 0; wa = 0; wd = 0;
+
+        #10;
+        reset = 0;
 
         $display("=== Register File Testbench Start ===");
 

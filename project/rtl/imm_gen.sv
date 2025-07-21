@@ -17,6 +17,14 @@ module immgen (
         case (imm_src)
             3'b000: // I-type (Example completed)
                 imm_ext = {{20{instruction[31]}}, instruction[31:20]};
+            3'b001: // I-type (Example completed)
+                imm_ext = {{20{instruction[31]}}, instruction[31:25], instruction[11:7]};
+            3'b010: // I-type (Example completed)
+                imm_ext = {{20{instruction[31]}}, instruction[7], instruction[30:25],instruction[11:8],1'b0};
+            3'b011: // I-type (Example completed)
+                imm_ext = {instruction[31:12],{12'b0}};
+            3'b100: // I-type (Example completed)
+                imm_ext = {{11{instruction[31]}}, instruction[31],instruction[19:12], instruction[20], instruction[30:21],1'b0};
             
             // TODO: Implement remaining immediate types
             // 3'b001: S-type
