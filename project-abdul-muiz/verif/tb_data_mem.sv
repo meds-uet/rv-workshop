@@ -14,6 +14,7 @@ module tb_dmem;
     logic we;
     logic [31:0] addr;
     logic [31:0] wdata;
+    logic reset;
 
     // Output
     wire [31:0] rdata;
@@ -26,7 +27,8 @@ module tb_dmem;
         .we(we),
         .addr(addr),
         .wdata(wdata),
-        .rdata(rdata)
+        .rdata(rdata),
+        .reset(reset)
     );
 
     // Clock generation (10ns period)
@@ -53,6 +55,8 @@ module tb_dmem;
         we = 0;
         addr = 0;
         wdata = 0;
+        reset=1;
+        #10;reset=0;#5;
 
         #10; // Wait for memory init
 

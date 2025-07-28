@@ -1,0 +1,114 @@
+# ERROR: No extended dataflow license exists
+# vsim tb_riscv_processor 
+# Start time: 22:09:58 on Jul 17,2025
+# Loading sv_std.std
+# Loading work.tb_riscv_processor
+# Loading work.riscv_processor
+# Loading work.pc
+# Loading work.imem
+# Loading work.register_file
+# Loading work.immgen
+# Loading work.control
+# Loading work.alu
+# Loading work.dmem
+# Loading work.branch_unit
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'control_unit'.  Expected 13, found 12.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_riscv_processor/dut/control_unit File: rtl/processor.sv Line: 71
+# ** Warning: (vsim-3722) rtl/processor.sv(71): [TFMPC] - Missing connection for port 'result_src'.
+add wave  \
+sim:/tb_riscv_processor/dut/clk \
+sim:/tb_riscv_processor/dut/reset \
+sim:/tb_riscv_processor/dut/pc_out \
+sim:/tb_riscv_processor/dut/instruction_out \
+sim:/tb_riscv_processor/dut/pc \
+sim:/tb_riscv_processor/dut/pc_next \
+sim:/tb_riscv_processor/dut/instruction \
+sim:/tb_riscv_processor/dut/rd1 \
+sim:/tb_riscv_processor/dut/rd2 \
+sim:/tb_riscv_processor/dut/imm_ext \
+sim:/tb_riscv_processor/dut/src_a \
+sim:/tb_riscv_processor/dut/src_b \
+sim:/tb_riscv_processor/dut/alu_result \
+sim:/tb_riscv_processor/dut/read_data \
+sim:/tb_riscv_processor/dut/result \
+sim:/tb_riscv_processor/dut/zero \
+sim:/tb_riscv_processor/dut/pc_src \
+sim:/tb_riscv_processor/dut/reg_write \
+sim:/tb_riscv_processor/dut/alu_src \
+sim:/tb_riscv_processor/dut/mem_write \
+sim:/tb_riscv_processor/dut/branch \
+sim:/tb_riscv_processor/dut/jump \
+sim:/tb_riscv_processor/dut/mem_read \
+sim:/tb_riscv_processor/dut/mem_to_reg \
+sim:/tb_riscv_processor/dut/imm_src \
+sim:/tb_riscv_processor/dut/alu_control \
+sim:/tb_riscv_processor/dut/rs1 \
+sim:/tb_riscv_processor/dut/rs2 \
+sim:/tb_riscv_processor/dut/rd \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+add wave  \
+sim:/tb_riscv_processor/dut/clk \
+sim:/tb_riscv_processor/dut/reset \
+sim:/tb_riscv_processor/dut/pc_out \
+sim:/tb_riscv_processor/dut/instruction_out \
+sim:/tb_riscv_processor/dut/pc \
+sim:/tb_riscv_processor/dut/pc_next \
+sim:/tb_riscv_processor/dut/instruction \
+sim:/tb_riscv_processor/dut/rd1 \
+sim:/tb_riscv_processor/dut/rd2 \
+sim:/tb_riscv_processor/dut/imm_ext \
+sim:/tb_riscv_processor/dut/src_a \
+sim:/tb_riscv_processor/dut/src_b \
+sim:/tb_riscv_processor/dut/alu_result \
+sim:/tb_riscv_processor/dut/read_data \
+sim:/tb_riscv_processor/dut/result \
+sim:/tb_riscv_processor/dut/zero \
+sim:/tb_riscv_processor/dut/pc_src \
+sim:/tb_riscv_processor/dut/reg_write \
+sim:/tb_riscv_processor/dut/alu_src \
+sim:/tb_riscv_processor/dut/mem_write \
+sim:/tb_riscv_processor/dut/branch \
+sim:/tb_riscv_processor/dut/jump \
+sim:/tb_riscv_processor/dut/mem_read \
+sim:/tb_riscv_processor/dut/mem_to_reg \
+sim:/tb_riscv_processor/dut/imm_src \
+sim:/tb_riscv_processor/dut/alu_control \
+sim:/tb_riscv_processor/dut/rs1 \
+sim:/tb_riscv_processor/dut/rs2 \
+sim:/tb_riscv_processor/dut/rd \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction \
+sim:/tb_riscv_processor/dut/#implicit-var#instruction
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_riscv_processor/dut/#implicit-var#instruction'.
+run -all
+# === RISCV Processor Test Start ===
+# [PASS] ADDI x1, x0, 5 | PC = 00000000, Instr = 00500093
+# [PASS] ADDI x2, x0, 6 | PC = 00000004, Instr = 00600113
+# [PASS] ADD x3, x1, x2 | PC = 00000008, Instr = 002081b3
+# [PASS] NOP | PC = 0000000c, Instr = 00000013
+# [PASS] Default NOP | PC = 00000010, Instr = 00000013
+# [PASS] Default NOP | PC = 00000018, Instr = 00000013
+# [PASS] Default NOP | PC = 0000001c, Instr = 00000013
+# [PASS] Default NOP | PC = 00000020, Instr = 00000013
+# [PASS] Default NOP | PC = 00000024, Instr = 00000013
+# [PASS] Default NOP | PC = 00000028, Instr = 00000013
+# === RISCV Processor Summary ===
+# Total: 10 | Passed: 10 | Failed: 0
+# ✅ All tests passed.
+# ** Note: $finish    : verif/tb_processor.sv(60)
+#    Time: 130 ps  Iteration: 0  Instance: /tb_riscv_processor
+# 1
+# Break in Module tb_riscv_processor at verif/tb_processor.sv line 60
+# End time: 18:09:17 on Jul 18,2025, Elapsed time: 19:59:19
+# Errors: 0, Warnings: 2
