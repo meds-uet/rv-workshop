@@ -35,6 +35,11 @@ module branch_unit (
             3'b000: branch_condition = (rd1 == rd2);       // BEQ
             3'b001: branch_condition = (rd1 != rd2);       // BNE
             // TODO: Implement BLT, BGE, BLTU, BGEU
+            3'b100: branch_condition = ($signed(rd1) < $signed(rd2)); // BLT (signed)
+            3'b101: branch_condition = ($signed(rd1) >= $signed(rd2)); // BGE (signed)
+            3'b110: branch_condition = (rd1 < rd2); // BLTU (unsigned)
+            3'b111: branch_condition = (rd1 >= rd2); // BGEU (unsigned)
+            // Default case for unsupported funct3
             default: branch_condition = 1'b0;
         endcase
     end

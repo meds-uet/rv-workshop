@@ -34,12 +34,19 @@ module alu (
             4'b0000: result = a + b;              // ADD
             4'b0001: result = a - b;              // SUB
             4'b0010: result = a & b;              // AND
-            // TODO: Complete rest of the ALU operations
+            // TODO: Complete rest of the ALU operations(done)
+            4'b0011: result = a | b;              // OR
+            4'b0100: result = a ^ b;              // XOR
+            4'b0101: result = a << b;     // SLL 
+            4'b0110: result = a >> b;      // SRL
+            4'b0111: result = $signed(a) >>> $signed(b);  // SRA
+            4'b1000: result = ($signed(a) < $signed(b))?1:0;   // SLT (signed)
+            4'b1001: result = (a < b)?1:0;   // SLTU (unsigned)
             default: result = 32'h0000_0000;
         endcase
     end
 
-    // TODO: Set 'zero' flag based on result
+    // TODO: Set 'zero' flag based on result (done)
     assign zero = (result == 32'h0000_0000);
 
 endmodule

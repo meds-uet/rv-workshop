@@ -8,7 +8,7 @@
 // =============================================================================
 
 module register_file (
-    input  logic        clk,
+    input  logic        clk,reset ,
     input  logic        we,
     input  logic [4:0]  ra1, ra2, wa,
     input  logic [31:0] wd,
@@ -17,14 +17,28 @@ module register_file (
 
     logic [31:0] registers [0:31];
 
-    // TODO: Initialize registers to zero using a for loop
+    // TODO: Initialize registers to zero using a for loop(done in last))
+   
 
     // Read port 1 (example implemented)
     assign rd1 = (ra1 == 5'b00000) ? 32'h0000_0000 : registers[ra1];
 
-    // TODO: Implement rd2 read port using same logic as rd1
+    // TODO: Implement rd2 read port using same logic as rd1 (done )
+    assign rd2 = (ra2 == 5'b00000) ? 32'h0000_0000 : registers[ra2];
 
-    // TODO: Implement write logic (on clk posedge) 
+    // TODO: Implement write logic (on clk posedge) (done)
+
     // Only write if we == 1 and wa != x0
+    always_ff @(posedge clk) begin
+        if (reset) begin
+            for(int i= 0 ; i<32 ;i++) begin
+                registers[i] = 32'h0;
+            end
+        end
+        else if (we && wa != 5'b00000) begin
+            registers[wa] <= wd; 
+        end
+    end
 
 endmodule
+
